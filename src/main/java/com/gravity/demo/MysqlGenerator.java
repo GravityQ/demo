@@ -51,7 +51,11 @@ public class MysqlGenerator {
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("gravity");
         gc.setOpen(false);
-        // gc.setSwagger2(true); 实体属性 Swagger2 注解
+        //实体属性 Swagger2 注解
+        gc.setSwagger2(true);
+        gc.setEntityName("%s");
+        gc.setServiceName("%sService");
+        gc.setXmlName("%sMapper");
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
@@ -65,8 +69,13 @@ public class MysqlGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("模块名"));
+        String moduleName=scanner("模块名");
         pc.setParent("com.gravity.demo");
+        pc.setController("controller."+moduleName);
+        pc.setEntity("entity."+moduleName);
+        pc.setService("service."+moduleName);
+        pc.setServiceImpl("service.impl."+moduleName);
+        pc.setMapper("mapper."+moduleName);
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -77,9 +86,7 @@ public class MysqlGenerator {
             }
         };
 
-        // 如果模板引擎是 freemarker
-//        String templatePath = "/templates/mapper.xml.ftl";
-        // 如果模板引擎是 velocity
+
          String templatePath = "/templates/mapper.xml.vm";
 
         // 自定义输出配置
@@ -89,7 +96,7 @@ public class MysqlGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
+                return projectPath + "/src/main/resources/mapper/" + moduleName
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
@@ -120,18 +127,22 @@ public class MysqlGenerator {
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
+        strategy.setCapitalMode(false);// 全局大写命名
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setSuperEntityClass("com.gravity.demo.common.BaseEntity");
+//        strategy.setSuperEntityClass("com.gravity.demo.common.BaseEntity");
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         // 公共父类
-        strategy.setSuperControllerClass("com.gravity.demo.common.BaseController");
+//        strategy.setSuperControllerClass("com.gravity.demo.common.BaseController");
+        strategy.setSuperMapperClass("com.baomidou.mybatisplus.core.mapper.BaseMapper");
+        strategy.setSuperServiceClass("com.baomidou.mybatisplus.extension.service.IService");
+        strategy.setSuperServiceImplClass("com.baomidou.mybatisplus.extension.service.impl.ServiceImpl");
         // 写于父类中的公共字段
         strategy.setSuperEntityColumns("id");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
+        strategy.setTablePrefix(moduleName+ "_");
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new VelocityTemplateEngine());
         mpg.execute();
