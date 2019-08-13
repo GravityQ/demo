@@ -20,9 +20,9 @@ import java.util.Map;
 public class ShiroConfig {
 
     @Bean("securityManager")
-    public SecurityManager securityManager(@Autowired ShiroRealm shiroRealm) {
+    public SecurityManager securityManager(@Autowired JWTRealm JWTRealm) {
         DefaultSecurityManager defaultSecurityManager = new DefaultSecurityManager();
-        defaultSecurityManager.setRealm(shiroRealm);
+        defaultSecurityManager.setRealm(JWTRealm);
         return defaultSecurityManager;
     }
 
