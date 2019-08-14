@@ -1,10 +1,9 @@
-package com.gravity.demo.common.config;
+package com.gravity.demo.common.shiro;
 
-import com.baomidou.mybatisplus.extension.service.additional.query.impl.QueryChainWrapper;
 import com.gravity.demo.common.utils.JWTUtils;
-import com.gravity.demo.entity.sys.User;
 import com.gravity.demo.service.sys.ResourceService;
 import com.gravity.demo.service.sys.UserService;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -56,6 +55,9 @@ public class JWTRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String token = (String) authenticationToken.getPrincipal();
+        if (JWTUtils.isExpired(token)) {
+            throw new ExpiredJwtException(null,JWTUtils.getClaim(token),"token已过期");
+        }
         //未过期
 //        if (!JWTUtils.isExpired(token)) {
             return new SimpleAuthenticationInfo(token,token,getName());

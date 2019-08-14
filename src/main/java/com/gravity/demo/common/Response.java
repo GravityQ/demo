@@ -19,6 +19,7 @@ public class Response<T> {
 
     private Response(T data) {
         this.code = 0;
+        this.msg = "SUCCESS";
         this.data = data;
     }
 
@@ -29,11 +30,19 @@ public class Response<T> {
     }
 
     public static Response success() {
-        return new Response(0, "操作成功！");
+        return new Response(0, "SUCCESS");
     }
 
-    public static<T> Response<T> success(Object data) {
+    public static <T> Response<T> success(Object data) {
         return new Response(data);
+    }
+
+    public static Response error() {
+        return new Response(1, "ERROR");
+    }
+
+    public static Response error(String msg) {
+        return new Response(1, msg);
     }
 
     public static Response error(int code, String msg) {

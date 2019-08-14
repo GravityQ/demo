@@ -1,10 +1,8 @@
 package com.gravity.demo.common.utils;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import sun.tools.jstat.Token;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -44,6 +42,7 @@ public class JWTUtils {
 
     /**
      * 解析claim
+     *
      * @return
      */
     public static Claims getClaim(String token) {
@@ -57,6 +56,7 @@ public class JWTUtils {
     public static Integer getUid(String token) {
         return getClaim(token).get(UID, Integer.class);
     }
+
     /**
      * 获取jwt失效时间
      */
