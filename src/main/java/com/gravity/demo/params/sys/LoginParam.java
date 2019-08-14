@@ -16,6 +16,6 @@ public class LoginParam {
     @NotNull
     private String username;
     @NotNull
-    @Length(min = 6)
+//    @Length(min = 6)
     private String password;
 }

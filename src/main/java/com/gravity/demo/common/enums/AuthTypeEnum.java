@@ -1,6 +1,7 @@
 package com.gravity.demo.common.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.baomidou.mybatisplus.core.enums.IEnum;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
@@ -22,6 +23,7 @@ public enum AuthTypeEnum implements IEnum {
      * 需要鉴定是否包含权限
      */
     AUTH(3);
+
     @EnumValue
     private final int value;
 
@@ -36,7 +38,7 @@ public enum AuthTypeEnum implements IEnum {
      */
     @JsonValue
     @Override
-    public int getValue() {
+    public Integer getValue() {
         return this.value;
     }
 }

@@ -40,7 +40,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><i class="layui-icon layui-icon-username"></i></label>
                     <div class="layui-input-block">
-                        <input name="loginName" type="text" lay-verify="loginName" placeholder="账号" value="crown"
+                        <input name="username" type="text" lay-verify="username" placeholder="账号" value="crown"
                                class="layui-input">
                     </div>
                 </div>
@@ -89,7 +89,7 @@
             return;
         }
         form.verify({
-            loginName: function (value) {
+            username: function (value) {
                 if (/^\s*$/g.test(value)) {
                     return '请填写用户名';
                 }

@@ -1,15 +1,20 @@
 package com.gravity.demo.common;
 
 
+import lombok.Data;
+
+import java.io.Serializable;
+
 /**
  * 全局响应
- *
+ * 没有get，set方法不能转成json格式
  * @author qijunlin
  * @date 2019-08-06 18:30
  */
+@Data
+public class Response<T> implements Serializable {
 
-public class Response<T> {
-
+    private static final long serialVersionUID = -4827442398635070382L;
     private int code;
     private String msg;
     private T data;

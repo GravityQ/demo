@@ -4,6 +4,7 @@ server:
     context-path: /
 mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml
+  type-enums-package: com.gravity.demo.common.enums
 
 
 spring:
