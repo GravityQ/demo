@@ -4,6 +4,7 @@ import com.gravity.demo.common.utils.JWTUtils;
 import com.gravity.demo.service.sys.ResourceService;
 import com.gravity.demo.service.sys.UserService;
 import io.jsonwebtoken.ExpiredJwtException;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -55,7 +56,7 @@ public class JWTRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String token = (String) authenticationToken.getPrincipal();
-        if (JWTUtils.isExpired(token)) {
+        if (StringUtils.isNotBlank(token)&&JWTUtils.isExpired(token)) {
             throw new ExpiredJwtException(null,JWTUtils.getClaim(token),"token已过期");
         }
         //未过期

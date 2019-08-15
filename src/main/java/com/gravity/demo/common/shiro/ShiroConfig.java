@@ -44,6 +44,7 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");
         Map<String, String> filterMap = new LinkedHashMap<>();
         // authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
+        filterMap.put("/account/token", "anon");
         filterMap.put("/", "anon");
         //添加静态文件权限，springboot默认首页是index.html
         filterMap.put("/static/**", "anon");

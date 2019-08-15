@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class JWTUtils {
     private static final String UID = "uid";
-    private static final String SECRET = "uid";
+    private static final String SECRET = "1HNTZPZNMDJu3k";
     private static final long EXPIRE = 60 * 1000;
 
     /**

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /**
  * 用户登录相关
@@ -25,7 +26,7 @@ public class LoginController {
     @Autowired
     private UserService userService;
     @PostMapping("/token")
-    public Response login(@RequestBody @Validated LoginParam loginParam, HttpServletRequest request) {
+    public Response login(@RequestBody @Valid LoginParam loginParam, HttpServletRequest request) {
        return userService.login(loginParam.getUsername(), loginParam.getPassword(), IpUtils.getIpAdress(request));
     }
 }
