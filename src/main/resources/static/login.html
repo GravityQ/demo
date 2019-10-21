@@ -105,13 +105,13 @@
             if (codeflag) {
                 layer.load(2);
                 $.ajax({
-                    url: config.serverUrl + '/account/token',
+                    url: config.serverUrl + '/login',
                     data: JSON.stringify(obj.field),
                     type: 'POST',
                     contentType: 'application/json',
                     success: function (data) {
-                        config.putUid(data.result.uid);
-                        config.putToken(data.result.token);
+                        // config.putUid(data.result.uid);
+                        config.putToken(data.data);
                         location.replace('./');
                     },
                     error: function (xhr) {
