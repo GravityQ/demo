@@ -31,7 +31,7 @@ public class LoginController {
         return userService.login(loginParam.getUsername(), loginParam.getPassword(), IpUtils.getIpAdress(request));
     }
 
-    @PostMapping(name = "password/change")
+    @PostMapping("password/change")
     public Response<Void> changePassword(@RequestBody @Valid ChangePasswordParam param) {
         userService.updatePassword(SysUserUtils.getUsername(), param.getOldPassword(), param.getNewPassword());
         return Response.success();
@@ -41,4 +41,10 @@ public class LoginController {
     public Response<User> info() {
         return userService.info(SysUserUtils.getUsername());
     }
+
+    @GetMapping("notRole")
+    public Response notRole() {
+        return Response.error("没有权限");
+    }
+
 }

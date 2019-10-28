@@ -36,3 +36,15 @@ spring:
         cacheServerConfiguration: true
         elideSetAutoCommits: true
         maintainTimeStats: false
+  ## Elasticsearch配置文件（必须）
+  ## 该配置和Elasticsearch的elasticsearch.yml中的配置信息有关
+#  data:
+#    elasticsearch:
+#      cluster-name: elasticsearch_qijunlin
+#      cluster-nodes: 127.0.0.1:9300
+#      #是否开启本地存储
+#      repositories:
+#        enabled: true
+#https://www.jianshu.com/p/de838a665eec
+elasticsearch:
+  ip: localhost:9200

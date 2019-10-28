@@ -1,1 +1,7 @@
 ### 记录我所有犯过的错误
+|错误|原因|级别
+|---|---|----|
+|枚举转换错误|mybatisPlus版本不匹配|中级
+|404找不到页面|PostMapping添加了name|低级
+|get 不支持|请求方法出错|低级
+|es报错|未添加elasticsearch-rest-client依赖|中级

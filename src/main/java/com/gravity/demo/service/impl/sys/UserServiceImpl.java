@@ -6,7 +6,6 @@ import com.gravity.demo.common.Response;
 import com.gravity.demo.common.exception.BusinessException;
 import com.gravity.demo.entity.sys.User;
 import com.gravity.demo.mapper.sys.UserMapper;
-import com.gravity.demo.params.sys.ChangePasswordParam;
 import com.gravity.demo.service.sys.UserRoleService;
 import com.gravity.demo.service.sys.UserService;
 import org.apache.commons.codec.digest.Md5Crypt;
@@ -52,7 +51,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public boolean updatePassword(String username, String oldPassword, String newPassword) {
         User user = query().eq("login_name", username).one();
-        if (!user.getPassword().equals(Md5Crypt.apr1Crypt(oldPassword))) {
+        oldPassword = Md5Crypt.apr1Crypt(oldPassword,username);
+        if (!user.getPassword().equals(oldPassword)) {
             throw new BusinessException(1, "原密码不正确");
         }
         user.setPassword(Md5Crypt.apr1Crypt(newPassword, user.getLoginName()));

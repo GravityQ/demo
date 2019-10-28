@@ -1,6 +1,5 @@
 package com.gravity.demo.common.shiro;
 
-import com.gravity.demo.common.Response;
 import com.gravity.demo.common.enums.StatusEnum;
 import com.gravity.demo.common.exception.BusinessException;
 import com.gravity.demo.entity.sys.User;
@@ -65,7 +64,7 @@ public class ShiroRealm extends AuthorizingRealm {
         String password = new String((char[]) authenticationToken.getCredentials());
         User user = userService.query().eq("login_name", username).one();
         if (user == null) {
-            throw new BusinessException("用户名不存在");
+            throw new BusinessException("用户不存在");
         }
         String ps = Md5Crypt.apr1Crypt(password, username);
         if (!ps.equals(user.getPassword())) {

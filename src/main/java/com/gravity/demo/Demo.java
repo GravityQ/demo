@@ -1,5 +1,6 @@
 package com.gravity.demo;
 
+import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -37,8 +38,7 @@ public class Demo {
             return ++counter;
         }
     }
-
     public static void main(String[] args) {
-        System.out.println(UUID.randomUUID().toString());
+        System.out.println(new Date());
     }
 }
