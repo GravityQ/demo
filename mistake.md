@@ -5,3 +5,4 @@
 |404找不到页面|PostMapping添加了name|低级
 |get 不支持|请求方法出错|低级
 |es报错|未添加elasticsearch-rest-client依赖|中级
+|火信运营后台无法debug启动|https://www.imooc.com/article/24132

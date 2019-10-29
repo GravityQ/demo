@@ -2,10 +2,12 @@ package com.gravity.demo.common.shiro;
 
 import com.gravity.demo.common.enums.StatusEnum;
 import com.gravity.demo.common.exception.BusinessException;
+import com.gravity.demo.common.utils.MD5Util;
 import com.gravity.demo.entity.sys.User;
 import com.gravity.demo.service.sys.ResourceService;
 import com.gravity.demo.service.sys.UserService;
 import org.apache.commons.codec.digest.Md5Crypt;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -42,7 +44,7 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        System.out.println("-----------"+user.toString());
+        System.out.println("-----------" + user.toString());
         Set<String> roleIds = userService.getRoleIds(user.getUid()).stream().map(String::valueOf).collect(Collectors.toSet());
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.addRoles(roleIds);
@@ -66,8 +68,7 @@ public class ShiroRealm extends AuthorizingRealm {
         if (user == null) {
             throw new BusinessException("用户不存在");
         }
-        String ps = Md5Crypt.apr1Crypt(password, username);
-        if (!ps.equals(user.getPassword())) {
+        if (StringUtils.equals(password, user.getPassword())) {
             throw new BusinessException("密码错误");
         }
         if (!StatusEnum.NORMAL.equals(user.getStatus())) {

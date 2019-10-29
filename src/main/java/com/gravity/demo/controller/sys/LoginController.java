@@ -28,6 +28,7 @@ public class LoginController {
     // TODO: 2019/10/21 验证码没做
     @PostMapping("login")
     public Response<String> login(@RequestBody @Valid LoginParam loginParam, HttpServletRequest request) {
+
         return userService.login(loginParam.getUsername(), loginParam.getPassword(), IpUtils.getIpAdress(request));
     }
 
