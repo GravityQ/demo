@@ -1,9 +1,17 @@
 package com.gravity.demo.controller.sys;
 
 
+import com.gravity.demo.common.Response;
+import com.gravity.demo.common.enums.StatusEnum;
+import com.gravity.demo.entity.sys.User;
+import com.gravity.demo.service.sys.UserService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * <p>
@@ -16,6 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    @Autowired
+    private UserService userService;
 
+    public Response<User> list(@RequestParam String username, @RequestParam StatusEnum status) {
+        List<User> list = userService.query().likeRight(StringUtils.isNotBlank(username), "username", username)
+                .eq("status", status).list();
+        return Response.success(list);
+    }
 }
 

@@ -1,5 +1,7 @@
 package com.gravity.demo.controller.sys;
 
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.CircleCaptcha;
 import com.gravity.demo.common.Response;
 import com.gravity.demo.common.utils.IpUtils;
 import com.gravity.demo.common.utils.SysUserUtils;
@@ -28,7 +30,6 @@ public class LoginController {
     // TODO: 2019/10/21 验证码没做
     @PostMapping("login")
     public Response<String> login(@RequestBody @Valid LoginParam loginParam, HttpServletRequest request) {
-
         return userService.login(loginParam.getUsername(), loginParam.getPassword(), IpUtils.getIpAdress(request));
     }
 
@@ -48,4 +49,8 @@ public class LoginController {
         return Response.error("没有权限");
     }
 
+    @GetMapping("")
+    public Response getCaptcha() {
+        return null;
+    }
 }

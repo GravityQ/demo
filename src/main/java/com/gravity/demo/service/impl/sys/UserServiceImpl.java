@@ -1,12 +1,9 @@
 package com.gravity.demo.service.impl.sys;
 
-import cn.hutool.crypto.SecureUtil;
-import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gravity.demo.common.Response;
 import com.gravity.demo.common.exception.BusinessException;
-import com.gravity.demo.common.utils.MD5Util;
 import com.gravity.demo.entity.sys.User;
 import com.gravity.demo.mapper.sys.UserMapper;
 import com.gravity.demo.service.sys.UserRoleService;
@@ -17,7 +14,6 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.crypto.SecretKey;
 import java.util.List;
 
 /**
@@ -44,7 +40,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public Response login(String username, String password, String ipAdress) {
-        password = MD5Util.encrypt(username, password);
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         SecurityUtils.getSubject().login(token);
         User user = query().eq("login_name", username).one();

@@ -11,6 +11,8 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.*;
+import org.elasticsearch.script.Script;
+import org.elasticsearch.script.ScriptType;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.FetchSourceContext;
@@ -25,6 +27,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import static java.util.Collections.singletonMap;
 
 /**
  * 创建索引
@@ -71,7 +75,15 @@ public class CreateIndexTest {
     @Test
     public void update() throws IOException {
         UpdateRequest updateRequest = new UpdateRequest("posts", "1");
-        System.out.println(highLevelClient.update(updateRequest, RequestOptions.DEFAULT));
+        Map<String, Object> parameters = singletonMap("count", 4);
+        Script stored = new Script(
+                ScriptType.STORED, null, "1", parameters);
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("updated", new Date());
+        jsonMap.put("reason", "daily update");
+        updateRequest.script(stored);
+        updateRequest.upsert(jsonMap);
+//        System.out.println(highLevelClient.update(updateRequest, RequestOptions.DEFAULT));
     }
 
     @Test

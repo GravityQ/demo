@@ -44,7 +44,6 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        System.out.println("-----------" + user.toString());
         Set<String> roleIds = userService.getRoleIds(user.getUid()).stream().map(String::valueOf).collect(Collectors.toSet());
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.addRoles(roleIds);
