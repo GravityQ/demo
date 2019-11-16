@@ -1,7 +1,7 @@
 package com.gravity.demo.controller.sys;
 
 
-import com.gravity.demo.common.Response;
+import com.gravity.demo.common.ResultResponse;
 import com.gravity.demo.common.enums.StatusEnum;
 import com.gravity.demo.entity.sys.User;
 import com.gravity.demo.service.sys.UserService;
@@ -27,10 +27,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    public Response<User> list(@RequestParam String username, @RequestParam StatusEnum status) {
+    public ResultResponse<User> list(@RequestParam String username, @RequestParam StatusEnum status) {
         List<User> list = userService.query().likeRight(StringUtils.isNotBlank(username), "username", username)
                 .eq("status", status).list();
-        return Response.success(list);
+        return ResultResponse.success(list);
     }
 }
 

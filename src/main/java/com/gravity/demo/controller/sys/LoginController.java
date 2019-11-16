@@ -1,8 +1,6 @@
 package com.gravity.demo.controller.sys;
 
-import cn.hutool.captcha.CaptchaUtil;
-import cn.hutool.captcha.CircleCaptcha;
-import com.gravity.demo.common.Response;
+import com.gravity.demo.common.ResultResponse;
 import com.gravity.demo.common.utils.IpUtils;
 import com.gravity.demo.common.utils.SysUserUtils;
 import com.gravity.demo.entity.sys.User;
@@ -29,28 +27,24 @@ public class LoginController {
 
     // TODO: 2019/10/21 验证码没做
     @PostMapping("login")
-    public Response<String> login(@RequestBody @Valid LoginParam loginParam, HttpServletRequest request) {
+    public ResultResponse<String> login(@RequestBody @Valid LoginParam loginParam, HttpServletRequest request) {
         return userService.login(loginParam.getUsername(), loginParam.getPassword(), IpUtils.getIpAdress(request));
     }
 
     @PostMapping("password/change")
-    public Response<Void> changePassword(@RequestBody @Valid ChangePasswordParam param) {
-        userService.updatePassword(SysUserUtils.getUsername(), param.getOldPassword(), param.getNewPassword());
-        return Response.success();
+    public ResultResponse<Void> changePassword(@RequestBody @Valid ChangePasswordParam param) {
+        userService.updatePassword(SysUserUtils.getLoginUser().getLoginName(), param.getOldPassword(), param.getNewPassword());
+        return ResultResponse.success();
     }
 
     @GetMapping("info")
-    public Response<User> info() {
-        return userService.info(SysUserUtils.getUsername());
+    public ResultResponse<User> info() {
+        return userService.info(SysUserUtils.getLoginUser().getUid());
     }
 
     @GetMapping("notRole")
-    public Response notRole() {
-        return Response.error("没有权限");
+    public ResultResponse notRole() {
+        return ResultResponse.error("没有权限");
     }
 
-    @GetMapping("")
-    public Response getCaptcha() {
-        return null;
-    }
 }

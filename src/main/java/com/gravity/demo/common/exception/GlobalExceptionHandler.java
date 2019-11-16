@@ -1,6 +1,6 @@
 package com.gravity.demo.common.exception;
 
-import com.gravity.demo.common.Response;
+import com.gravity.demo.common.ResultResponse;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = BusinessException.class)
-    public Response businessExceptionHandler(HttpServletRequest request, BusinessException e) {
-        return Response.error(e.getCode(), e.getMsg());
+    public ResultResponse businessExceptionHandler(HttpServletRequest request, BusinessException e) {
+        return ResultResponse.error(e.getCode(), e.getMsg());
     }
 
     @ExceptionHandler(value = Exception.class)
-    public Response exceptHandler(HttpServletRequest request, Exception e) {
+    public ResultResponse exceptHandler(HttpServletRequest request, Exception e) {
         e.printStackTrace();
-        return Response.error(1, e.getMessage());
+        return ResultResponse.error(1, e.getMessage());
     }
 }

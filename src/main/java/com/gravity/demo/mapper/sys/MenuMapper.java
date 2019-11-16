@@ -1,7 +1,10 @@
 package com.gravity.demo.mapper.sys;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.gravity.demo.dto.sys.MenuTreeDTO;
 import com.gravity.demo.entity.sys.Menu;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.gravity.demo.entity.sys.Menu;
  */
 public interface MenuMapper extends BaseMapper<Menu> {
 
+    List<MenuTreeDTO> getUserMenus(Integer uid);
 }

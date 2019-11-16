@@ -1,6 +1,6 @@
 package com.gravity.demo.service.sys;
 
-import com.gravity.demo.common.Response;
+import com.gravity.demo.common.ResultResponse;
 import com.gravity.demo.entity.sys.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -23,9 +23,9 @@ public interface UserService extends IService<User> {
      */
     List<Integer> getRoleIds(Integer userId);
 
-    Response<String> login(String username, String password, String ipAdress);
+    ResultResponse<String> login(String username, String password, String ipAdress);
 
     boolean updatePassword(String username, String oldPassword, String newPassword);
 
-    Response<User> info(String username);
+    ResultResponse<User> info(Integer userId);
 }

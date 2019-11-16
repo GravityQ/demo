@@ -46,26 +46,11 @@ public class Menu implements Serializable {
     @ApiModelProperty(value = "菜单图标")
     private String icon;
 
-    @ApiModelProperty(value = "创建者ID")
-    private Integer createUid;
-
-    @ApiModelProperty(value = "修改者ID")
-    private Integer updateUid;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime updateTime;
-
-    @ApiModelProperty(value = "状态 0：禁用 1：正常")
-    private Integer status;
-
     @ApiModelProperty(value = "路由")
     private String router;
 
     @ApiModelProperty(value = "别名")
-    private String alias;
+    private String perm;
 
 
 }

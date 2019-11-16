@@ -2,7 +2,7 @@ package com.gravity.demo.service.impl.sys;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gravity.demo.common.Response;
+import com.gravity.demo.common.ResultResponse;
 import com.gravity.demo.common.exception.BusinessException;
 import com.gravity.demo.entity.sys.User;
 import com.gravity.demo.mapper.sys.UserMapper;
@@ -39,13 +39,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public Response login(String username, String password, String ipAdress) {
+    public ResultResponse login(String username, String password, String ipAdress) {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         SecurityUtils.getSubject().login(token);
-        User user = query().eq("login_name", username).one();
-        user.setIp(ipAdress);
-        updateById(user);
-        return Response.success();
+        return ResultResponse.success(token);
     }
 
     @Override
@@ -60,8 +57,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public Response<User> info(String username) {
-        return Response.success(query().eq("login_name", username).one());
+    public ResultResponse<User> info(Integer userId) {
+        return ResultResponse.success(query().eq("uid", userId).one());
     }
 
 
