@@ -20,6 +20,6 @@ public class MenuServiceImplTest {
 
     @Test
     public void getUserMenus() {
-        System.out.println(menuService.getUserMenus(1));
+        System.out.println(menuService.getUserMenus("crown"));
     }
 }

@@ -4,11 +4,11 @@ package com.gravity.demo.controller.sys;
 import com.gravity.demo.common.ResultResponse;
 import com.gravity.demo.common.utils.SysUserUtils;
 import com.gravity.demo.service.sys.MenuService;
-import org.elasticsearch.common.inject.Inject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/menu")
 public class MenuController {
-    @Inject
+    @Resource
     private MenuService menuService;
 
     @GetMapping("menu")
     public ResultResponse menu() {
-        return menuService.getUserMenus(SysUserUtils.getLoginUser().getUid());
+        return menuService.getUserMenus(SysUserUtils.getLoginUsername());
     }
 
 }

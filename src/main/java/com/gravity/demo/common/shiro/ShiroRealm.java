@@ -73,6 +73,6 @@ public class ShiroRealm extends AuthorizingRealm {
         if (!StatusEnum.NORMAL.equals(user.getStatus())) {
             throw new BusinessException("用户已锁定");
         }
-        return new SimpleAuthenticationInfo(username, password, getName());
+        return new SimpleAuthenticationInfo(username, password, user.getUid().toString());
     }
 }

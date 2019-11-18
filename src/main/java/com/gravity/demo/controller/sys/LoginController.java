@@ -33,13 +33,13 @@ public class LoginController {
 
     @PostMapping("password/change")
     public ResultResponse<Void> changePassword(@RequestBody @Valid ChangePasswordParam param) {
-        userService.updatePassword(SysUserUtils.getLoginUser().getLoginName(), param.getOldPassword(), param.getNewPassword());
+        userService.updatePassword(SysUserUtils.getLoginUsername(), param.getOldPassword(), param.getNewPassword());
         return ResultResponse.success();
     }
 
     @GetMapping("info")
     public ResultResponse<User> info() {
-        return userService.info(SysUserUtils.getLoginUser().getUid());
+        return userService.info(SysUserUtils.getLoginUsername());
     }
 
     @GetMapping("notRole")

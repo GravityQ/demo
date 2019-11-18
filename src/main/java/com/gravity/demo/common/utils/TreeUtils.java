@@ -13,7 +13,7 @@ import java.util.List;
 
 public class TreeUtils {
     public static <T extends TreeNode> TreeNode findChildren(T treeNode, List<T> treeNodes) {
-        treeNodes.stream().filter(e -> treeNode.getId().equals(e.getParentId())).forEach(e -> e.getChildren().add(findChildren(e, treeNodes)));
+        treeNodes.stream().filter(e -> treeNode.getId().equals(e.getParentId())).forEach(e -> treeNode.getChildren().add(findChildren(e, treeNodes)));
         return treeNode;
     }
 }

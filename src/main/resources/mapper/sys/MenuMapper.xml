@@ -3,6 +3,7 @@
 <mapper namespace="com.gravity.demo.mapper.sys.MenuMapper">
     <resultMap id="menuDTO" type="com.gravity.demo.dto.sys.MenuTreeDTO">
         <result column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
         <result column="menu_name" property="menuName"/>
         <result column="menu_type" property="menuType"/>
         <result column="router" property="router"/>
@@ -11,7 +12,7 @@
         <result column="perm" property="perm"/>
     </resultMap>
     <select id="getUserMenus" resultMap="menuDTO">
-        select sm.id,sm.parent_id,menu_name,path,menu_type,icon,perm from sys_menu sm
+        select sm.id,sm.parent_id,sm.menu_name,sm.menu_type,sm.router,sm.icon,sm.perm from sys_menu sm
         left join sys_role_menu srm on sm.id = srm.menu_id
         left join sys_user_role sur on srm.role_id = sur.role_id
         left join sys_user su on sur.uid = su.uid

@@ -13,6 +13,5 @@ import java.util.List;
 public class TreeNode {
     protected Integer id;
     protected Integer parentId;
-
     protected List<TreeNode> children = new ArrayList<>();
 }

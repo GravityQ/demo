@@ -27,5 +27,5 @@ public interface UserService extends IService<User> {
 
     boolean updatePassword(String username, String oldPassword, String newPassword);
 
-    ResultResponse<User> info(Integer userId);
+    ResultResponse<User> info(String username);
 }

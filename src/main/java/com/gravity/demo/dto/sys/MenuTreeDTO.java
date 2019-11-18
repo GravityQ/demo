@@ -3,6 +3,7 @@ package com.gravity.demo.dto.sys;
 import com.gravity.demo.common.model.TreeNode;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 菜单
@@ -11,6 +12,7 @@ import lombok.Data;
  * @date 2019/11/16 5:19 下午
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class MenuTreeDTO extends TreeNode {
     @ApiModelProperty(notes = "菜单名称")
     private String menuName;

@@ -57,8 +57,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public ResultResponse<User> info(Integer userId) {
-        return ResultResponse.success(query().eq("uid", userId).one());
+    public ResultResponse<User> info(String username) {
+        return ResultResponse.success(query().eq("login_name", username).one());
     }
 
 
