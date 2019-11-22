@@ -1,8 +1,11 @@
 package com.gravity.demo.common.shiro;
 
+import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.crazycake.shiro.RedisCacheManager;
+import org.crazycake.shiro.RedisManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,6 +26,8 @@ public class ShiroConfig {
     public SecurityManager securityManager(@Autowired ShiroRealm ShiroRealm) {
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
         defaultWebSecurityManager.setRealm(ShiroRealm);
+        //shiro权限进行redis缓存
+        defaultWebSecurityManager.setCacheManager(cacheManager());
         return defaultWebSecurityManager;
     }
 
@@ -34,12 +39,12 @@ public class ShiroConfig {
 //        如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         //登录成功的url
-        shiroFilterFactoryBean.setSuccessUrl("/index");
+//        shiroFilterFactoryBean.setSuccessUrl("/index");
         //权限不足跳转页面
-        shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");
+//        shiroFilterFactoryBean.setUnauthorizedUrl("/notRole");
         Map<String, String> filterMap = new LinkedHashMap<>();
         //需要加上,否则会先调用doGetAuthenticationInfo再登录,报空指针异常
-//        filterMap.put("/login", "anon");
+        filterMap.put("/login", "anon");
         //authc:所有url都必须认证通过才可以访问; anon:所有url都都可以匿名访问
         filterMap.put("/", "anon");
         //添加静态文件权限，springboot默认首页是index.html
@@ -58,4 +63,13 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
+    public RedisManager redisManager() {
+        return new RedisManager();
+    }
+
+    public RedisCacheManager cacheManager() {
+        RedisCacheManager redisCacheManager = new RedisCacheManager();
+        redisCacheManager.setRedisManager(redisManager());
+        return redisCacheManager;
+    }
 }

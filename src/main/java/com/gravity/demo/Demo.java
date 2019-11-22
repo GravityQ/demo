@@ -38,7 +38,20 @@ public class Demo {
             return ++counter;
         }
     }
+
     public static void main(String[] args) {
-        System.out.println(new Date());
+        for (int i = 0; i < 10000; i++) {
+            repeatMessage("hello", 100);
+        }
+    }
+
+    public static void repeatMessage(String text, int count) {
+        Runnable r = () -> {
+            for (int i = 0; i < count; i++) {
+                System.out.println(text);
+                Thread.yield();
+            }
+        };
+        new Thread(r).start();
     }
 }
