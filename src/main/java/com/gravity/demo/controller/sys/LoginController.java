@@ -4,8 +4,8 @@ import com.gravity.demo.common.ResultResponse;
 import com.gravity.demo.common.utils.IpUtils;
 import com.gravity.demo.common.utils.SysUserUtils;
 import com.gravity.demo.entity.sys.User;
-import com.gravity.demo.params.sys.ChangePasswordParam;
-import com.gravity.demo.params.sys.LoginParam;
+import com.gravity.demo.req.sys.ChangePasswordReq;
+import com.gravity.demo.req.sys.LoginReq;
 import com.gravity.demo.service.sys.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +27,12 @@ public class LoginController {
 
     // TODO: 2019/10/21 验证码没做
     @PostMapping("login")
-    public ResultResponse<String> login(@RequestBody @Valid LoginParam loginParam, HttpServletRequest request) {
-        return userService.login(loginParam.getUsername(), loginParam.getPassword(), IpUtils.getIpAdress(request));
+    public ResultResponse<String> login(@RequestBody @Valid LoginReq loginReq, HttpServletRequest request) {
+        return userService.login(loginReq.getUsername(), loginReq.getPassword(), IpUtils.getIpAdress(request));
     }
 
     @PostMapping("password/change")
-    public ResultResponse<Void> changePassword(@RequestBody @Valid ChangePasswordParam param) {
+    public ResultResponse<Void> changePassword(@RequestBody @Valid ChangePasswordReq param) {
         userService.updatePassword(SysUserUtils.getLoginUsername(), param.getOldPassword(), param.getNewPassword());
         return ResultResponse.success();
     }

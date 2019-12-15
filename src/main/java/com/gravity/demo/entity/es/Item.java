@@ -1,7 +1,6 @@
 package com.gravity.demo.entity.es;
 
 import lombok.Data;
-import org.jboss.logging.Field;
 import org.springframework.data.annotation.Id;
 
 /**
