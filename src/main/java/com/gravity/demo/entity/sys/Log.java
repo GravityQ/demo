@@ -33,11 +33,7 @@ public class Log implements Serializable {
     @ApiModelProperty(value = "主键")
     private Integer id;
 
-    @ApiModelProperty(value = "用户id")
-    private Integer uid;
-
     @ApiModelProperty(value = "用户名")
-    @TableField(exist = false)
     private String username;
 
     @ApiModelProperty(value = "操作")

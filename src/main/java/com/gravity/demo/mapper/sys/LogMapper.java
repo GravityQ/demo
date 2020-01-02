@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2019-11-22
  */
 public interface LogMapper extends BaseMapper<Log> {
-
+    public int updateTime();
 }

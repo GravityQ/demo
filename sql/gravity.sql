@@ -11,7 +11,7 @@
  Target Server Version : 50727
  File Encoding         : 65001
 
- Date: 22/11/2019 19:51:49
+ Date: 29/11/2019 19:39:31
 */
 
 SET NAMES utf8mb4;
@@ -22,15 +22,23 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log` (
-  `id` int(11) NOT NULL COMMENT '主键',
-  `uid` int(11) NOT NULL COMMENT '用户id',
-  `operation` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '操作',
-  `method` varchar(255) COLLATE utf8_bin NOT NULL COMMENT '请求方法',
-  `params` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '请求参数',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `username` varchar(50) COLLATE utf8_bin NOT NULL COMMENT '用户名',
+  `operation` varchar(200) COLLATE utf8_bin NOT NULL COMMENT '操作',
+  `method` varchar(200) COLLATE utf8_bin NOT NULL COMMENT '请求方法',
+  `params` text COLLATE utf8_bin NOT NULL COMMENT '请求参数',
   `time` int(11) NOT NULL COMMENT '执行时长',
-  `ip` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'Ip地址',
-  `create_time` datetime DEFAULT NULL COMMENT '操作时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='系统日志表';
+  `ip` varchar(20) COLLATE utf8_bin NOT NULL COMMENT 'Ip地址',
+  `create_time` datetime NOT NULL COMMENT '操作时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='系统日志表';
+
+-- ----------------------------
+-- Records of sys_log
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_log` VALUES (1, 'crown', '登录', 'com.gravity.demo.controller.sys.LoginController.login', ' loginParam: LoginParam(username=crown, password=crown) request: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7fe5b94b loginParam: LoginParam(username=crown, password=crown) request: org.apache.shiro.web.servlet.ShiroHttpServletRequest@7fe5b94b', 0, '0:0:0:0:0:0:0:1', '2019-11-27 15:16:01');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_menu

@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-11-22
  */
 public interface LogService extends IService<Log> {
-
+    void updateTime();
 }
