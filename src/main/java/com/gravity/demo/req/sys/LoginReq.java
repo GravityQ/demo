@@ -1,4 +1,4 @@
-package com.gravity.demo.params.sys;
+package com.gravity.demo.req.sys;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
  * @date 2019-08-14 11:36
  */
 @Data
-public class LoginParam {
+public class LoginReq {
     @NotNull
     private String username;
     @NotNull
