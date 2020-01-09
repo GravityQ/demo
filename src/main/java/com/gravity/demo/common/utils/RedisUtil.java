@@ -203,7 +203,7 @@ public class RedisUtil {
      * 递增,若不存在则设置过期时间
      *
      * @param key   键
-     * @param time  过期时间
+     * @param time  过期时间,秒
      * @param delta 递增
      * @return
      */

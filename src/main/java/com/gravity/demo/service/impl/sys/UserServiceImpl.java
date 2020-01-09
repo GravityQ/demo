@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gravity.demo.common.ResultResponse;
 import com.gravity.demo.common.exception.BusinessException;
 import com.gravity.demo.common.utils.RedisUtil;
+import com.gravity.demo.common.constants.RedisConst;
 import com.gravity.demo.entity.sys.User;
 import com.gravity.demo.mapper.sys.UserMapper;
 import com.gravity.demo.service.sys.UserRoleService;
@@ -18,7 +19,6 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.UUID;
 
-import com.gravity.demo.common.consts.*;
 
 /**
  * <p>
@@ -54,10 +54,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             return ResultResponse.error("用户不存在");
         }
         if (!user.getPassword().equals(SecureUtil.md5(password))) {
-            redisUtil.set(RedisConst)
+            String errorKey = RedisConst.LOGIN_ERROR + username;
+            redisUtil.incr(errorKey, 5 * 60, 1);
+            int errorTimes = Integer.parseInt(stringRedisTemplate.opsForValue().get(errorKey));
+            if (errorTimes > RedisConst.LOGIN_ERROR_TIMES) {
+                return ResultResponse.error("登录错误次数过多,账号锁定5分钟");
+            }
             return ResultResponse.error("密码不正确");
         }
         String token = UUID.randomUUID().toString().replace("-", "").toLowerCase();
+        //有效时间两小时
+        redisUtil.set(RedisConst.LOGIN_PRE + username, user, 2 * 60 * 60);
         return ResultResponse.success(token);
     }
 

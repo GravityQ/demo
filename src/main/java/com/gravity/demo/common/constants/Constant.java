@@ -1,4 +1,4 @@
-package com.gravity.demo.common.consts;
+package com.gravity.demo.common.constants;
 
 /**
  * 常量
