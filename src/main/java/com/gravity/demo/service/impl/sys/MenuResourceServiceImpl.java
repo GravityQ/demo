@@ -19,4 +19,4 @@ import java.util.concurrent.atomic.AtomicLong;
 @Service
 public class MenuResourceServiceImpl extends ServiceImpl<MenuResourceMapper, MenuResource> implements MenuResourceService {
 
-}
+        }

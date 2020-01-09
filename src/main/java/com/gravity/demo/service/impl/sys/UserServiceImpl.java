@@ -1,20 +1,24 @@
 package com.gravity.demo.service.impl.sys;
 
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gravity.demo.common.ResultResponse;
 import com.gravity.demo.common.exception.BusinessException;
+import com.gravity.demo.common.utils.RedisUtil;
 import com.gravity.demo.entity.sys.User;
 import com.gravity.demo.mapper.sys.UserMapper;
 import com.gravity.demo.service.sys.UserRoleService;
 import com.gravity.demo.service.sys.UserService;
 import org.apache.commons.codec.digest.Md5Crypt;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
+
+import com.gravity.demo.common.consts.*;
 
 /**
  * <p>
@@ -29,6 +33,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Resource
     private UserRoleService userRoleService;
+    @Resource
+    private RedisUtil redisUtil;
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
+
 
     @Override
     public List<Integer> getRoleIds(Integer userId) {
@@ -40,17 +49,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public ResultResponse login(String username, String password, String ipAdress) {
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-        SecurityUtils.getSubject().login(token);
+        User user = this.baseMapper.selectOne(new QueryWrapper<User>().eq("user_name", username));
+        if (user == null) {
+            return ResultResponse.error("用户不存在");
+        }
+        if (!user.getPassword().equals(SecureUtil.md5(password))) {
+            redisUtil.set(RedisConst)
+            return ResultResponse.error("密码不正确");
+        }
+        String token = UUID.randomUUID().toString().replace("-", "").toLowerCase();
         return ResultResponse.success(token);
     }
 
     @Override
     public boolean updatePassword(String username, String oldPassword, String newPassword) {
         User user = query().eq("login_name", username).one();
-        oldPassword = Md5Crypt.apr1Crypt(oldPassword,username);
+        oldPassword = Md5Crypt.apr1Crypt(oldPassword, username);
         if (!user.getPassword().equals(oldPassword)) {
-            throw new BusinessException(1, "原密码不正确");
+            throw new BusinessException("原密码不正确");
         }
         user.setPassword(Md5Crypt.apr1Crypt(newPassword, user.getLoginName()));
         return updateById(user);

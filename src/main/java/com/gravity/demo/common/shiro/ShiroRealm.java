@@ -2,11 +2,9 @@ package com.gravity.demo.common.shiro;
 
 import com.gravity.demo.common.enums.StatusEnum;
 import com.gravity.demo.common.exception.BusinessException;
-import com.gravity.demo.common.utils.MD5Util;
 import com.gravity.demo.entity.sys.User;
 import com.gravity.demo.service.sys.ResourceService;
 import com.gravity.demo.service.sys.UserService;
-import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
