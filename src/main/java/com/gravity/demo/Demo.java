@@ -1,9 +1,5 @@
 package com.gravity.demo;
 
-import java.util.Date;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicLong;
-
 /**
  * @author qijunlin
  * @date 2019/9/29 3:20 下午
@@ -39,11 +35,11 @@ public class Demo {
         }
     }
 
-    public static void main(String[] args) {
-        for (int i = 0; i < 10000; i++) {
-            repeatMessage("hello", 100);
-        }
-    }
+//    public static void main(String[] args) {
+//        for (int i = 0; i < 10000; i++) {
+//            repeatMessage("hello", 100);
+//        }
+//    }
 
     public static void repeatMessage(String text, int count) {
         Runnable r = () -> {
@@ -54,4 +50,16 @@ public class Demo {
         };
         new Thread(r).start();
     }
+
+
+//    public static void main(String[] args) {
+//        String grabRequestStr="http://api-test.hbtalk.org/assets-grab/grab?redtext=026758c96a92957d0826dc75cbf5c892&content=5oGt5Zac5Y%2BR6LSi77yM5aSn5ZCJ5aSn5Yip77yB&currency=HCT";
+//        Pattern pattern = Pattern.compile("(?<=redtext=)(.+?)(?=&content)");
+//        Matcher matcher = pattern.matcher(s);
+//        if (matcher.find()) {
+//            System.out.println(matcher.group());
+//        }
+//        String s1 = grabRequestStr.substring(grabRequestStr.indexOf("redtext=")+8, grabRequestStr.indexOf("&content"));
+//        System.out.println(s1);
+//    }
 }
