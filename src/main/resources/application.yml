@@ -17,8 +17,8 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    username: root
-    password:
+    username: qjl
+    password: qjl2133!
     url: jdbc:p6spy:mysql://49.233.87.14:3306/gravity?characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false
     hikari:
       auto-commit: false
@@ -49,7 +49,7 @@ spring:
     # Redis服务器连接端口
     port: 6379
     # Redis 密码
-    password:
+    password: qjl3312
     # 连接超时时间（毫秒）
     timeout: 0
     jedis:
