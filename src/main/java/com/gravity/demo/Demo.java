@@ -53,7 +53,7 @@ public class Demo {
 
 
 //    public static void main(String[] args) {
-//        String grabRequestStr="http://api-test.hbtalk.org/assets-grab/grab?redtext=026758c96a92957d0826dc75cbf5c892&content=5oGt5Zac5Y%2BR6LSi77yM5aSn5ZCJ5aSn5Yip77yB&currency=HCT";
+//        String grabRequestStr="";
 //        Pattern pattern = Pattern.compile("(?<=redtext=)(.+?)(?=&content)");
 //        Matcher matcher = pattern.matcher(s);
 //        if (matcher.find()) {
