@@ -1,7 +1,6 @@
 package com.gravity.demo.req.sys;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 

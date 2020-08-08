@@ -37,7 +37,7 @@ layui.define(function (exports) {
         putToken: function (token) {
             layui.data(config.scope, {
                 key: 'token',
-                value: JSON.stringify( token)
+                value: JSON.stringify(token)
             });
         },
         // 获取缓存的菜单
