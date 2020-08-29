@@ -7,10 +7,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -67,6 +64,14 @@ public class RedisUtil {
      */
     public void delete(String key) {
         redisTemplate.delete(key);
+    }
+
+    /**
+     * 删除key
+     * @param keys
+     */
+    public void delete(Collection<String> keys) {
+        redisTemplate.delete(keys);
     }
 
     /**
