@@ -33,7 +33,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public ResultResponse getUserMenus(String username) {
-        Integer uid = userService.query().eq("login_name", username).one().getUid();
+        Integer uid = userService.query().eq("user_name", username).one().getUserId();
         List<MenuTreeDTO> menus = menuMapper.getUserMenus(uid);
         List<TreeNode> list = menus.stream().filter(e -> e.getParentId() == 0).map(e -> TreeUtils.findChildren(e, menus)).collect(Collectors.toList());
         return ResultResponse.success(list);

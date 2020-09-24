@@ -70,18 +70,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public boolean updatePassword(String username, String oldPassword, String newPassword) {
-        User user = query().eq("login_name", username).one();
+        User user = query().eq("user_name", username).one();
         oldPassword = Md5Crypt.apr1Crypt(oldPassword, username);
         if (!user.getPassword().equals(oldPassword)) {
             throw new BusinessException("原密码不正确");
         }
-        user.setPassword(Md5Crypt.apr1Crypt(newPassword, user.getLoginName()));
+        user.setPassword(Md5Crypt.apr1Crypt(newPassword, user.getUserName()));
         return updateById(user);
     }
 
     @Override
     public ResultResponse<User> info(String username) {
-        return ResultResponse.success(query().eq("login_name", username).one());
+        return ResultResponse.success(query().eq("user_name", username).one());
     }
 
 

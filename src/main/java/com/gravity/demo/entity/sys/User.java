@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 
 import com.gravity.demo.common.enums.StatusEnum;
 import io.swagger.annotations.ApiModel;
@@ -28,38 +29,50 @@ public class User implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "uid", type = IdType.AUTO)
-    private Integer uid;
+    @TableId(value = "user_id", type = IdType.AUTO)
+    private Integer userId;
 
     @ApiModelProperty(value = "用户名")
-    private String nickname;
+    private String userName;
+
+    @ApiModelProperty(value = "密码")
+    private String password;
+
+    @ApiModelProperty(value = "昵称")
+    private String nickName;
+
+    @ApiModelProperty(value = "头像")
+    private String avatar;
+
+    @ApiModelProperty(value = "性别")
+    private Integer sex;
 
     @ApiModelProperty(value = "邮箱")
     private String email;
 
     @ApiModelProperty(value = "手机")
-    private String phone;
+    private String mobile;
 
     @ApiModelProperty(value = "状态 0：禁用 1：正常")
     private StatusEnum status;
 
     @ApiModelProperty(value = "创建者ID")
-    private Integer createUid;
+    private Integer createrId;
 
     @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
+    private Date createTime;
 
     @ApiModelProperty(value = "修改时间")
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
-    @ApiModelProperty(value = "登陆名")
-    private String loginName;
+    @ApiModelProperty(value = "最后登录时间")
+    private Date lastLoginTime;
 
-    @ApiModelProperty(value = "密码")
-    private String password;
+    @ApiModelProperty(value = "最后登录IP地址")
+    private String lastLoginIp;
 
-    @ApiModelProperty(value = "IP地址")
-    private String ip;
+    @ApiModelProperty(value = "描述")
+    private String description;
 
 
 }

@@ -42,10 +42,10 @@ public class ShiroRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-        Set<String> roleIds = userService.getRoleIds(user.getUid()).stream().map(String::valueOf).collect(Collectors.toSet());
+        Set<String> roleIds = userService.getRoleIds(user.getUserId()).stream().map(String::valueOf).collect(Collectors.toSet());
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         info.addRoles(roleIds);
-        List<String> userPerms = resourceService.getUserPerms(user.getUid());
+        List<String> userPerms = resourceService.getUserPerms(user.getUserId());
         info.addStringPermissions(userPerms);
         return info;
     }
@@ -71,6 +71,6 @@ public class ShiroRealm extends AuthorizingRealm {
         if (!StatusEnum.NORMAL.equals(user.getStatus())) {
             throw new BusinessException("用户已锁定");
         }
-        return new SimpleAuthenticationInfo(username, password, user.getUid().toString());
+        return new SimpleAuthenticationInfo(username, password, user.getUserId().toString());
     }
 }
