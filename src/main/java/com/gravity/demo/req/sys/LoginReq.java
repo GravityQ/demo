@@ -1,6 +1,8 @@
 package com.gravity.demo.req.sys;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,8 +15,13 @@ import javax.validation.constraints.NotNull;
 @Data
 public class LoginReq {
     @NotNull
+    @ApiModelProperty("用户名")
     private String username;
+    /**
+     * 密码
+     */
     @NotNull
 //    @Length(min = 6)
+    @ApiModelProperty
     private String password;
 }

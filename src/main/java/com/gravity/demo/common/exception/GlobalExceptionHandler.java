@@ -1,23 +1,19 @@
 package com.gravity.demo.common.exception;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.gravity.demo.common.ResultResponse;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
-import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.method.annotation.MethodArgumentConversionNotSupportedException;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Path;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Set;
 
@@ -55,40 +51,6 @@ public class GlobalExceptionHandler {
         e.printStackTrace();
         return ResultResponse.error(1, e.getMessage());
     }
-
-//    @ExceptionHandler(MissingServletRequestParameterException.class)
-//    public ResultResponse handle(MissingServletRequestParameterException e) {
-//        return ParamErrorUtils.handle(e);
-//    }
-//
-//    @ExceptionHandler(MethodArgumentConversionNotSupportedException.class)
-//    public ResultResponse handle(MethodArgumentConversionNotSupportedException e) {
-//        return ParamErrorUtils.handle(e);
-//    }
-//
-//    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-//    public ResultResponse handle(MethodArgumentTypeMismatchException e) {
-//        return ParamErrorUtils.handle(e);
-//    }
-//
-//    @ExceptionHandler(ConstraintViolationException.class)
-//    public ResultResponse handle(ConstraintViolationException e) {
-//        return ParamErrorUtils.handle(e);
-//    }
-//
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public ResultResponse handle(MethodArgumentNotValidException e) {
-//        return ParamErrorUtils.handle(e);
-//    }
-//
-//    @ExceptionHandler(HttpMessageNotReadableException.class)
-//    public ResultResponse handle(HttpMessageNotReadableException e) {
-//        if (e.getCause() instanceof JsonMappingException) {
-//            return ParamErrorUtils.handle((JsonMappingException) e.getCause());
-//        }
-//        return ResultResponse.error(1, e.getMessage());
-//    }
-
 
     /**
      * 统一处理请求参数校验(实体对象传参)
@@ -130,10 +92,16 @@ public class GlobalExceptionHandler {
      * 参数校验异常拦截
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResultResponse handleMgtMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResultResponse handleMgtMethodArgumentNotValidException(MethodArgumentNotValidException e) throws ClassNotFoundException, NoSuchFieldException {
         FieldError fieldError = e.getBindingResult().getFieldError();
-        String field = fieldError.getField();
-        String defaultMessage = fieldError.getDefaultMessage();
-        return ResultResponse.error(field + defaultMessage);
+        String fieldName = fieldError.getField();
+        Field field = e.getBindingResult().getTarget().getClass().getDeclaredField(fieldName);
+        ApiModelProperty annotation = field.getAnnotation(ApiModelProperty.class);
+        String message = "";
+        if (annotation != null) {
+            message = annotation.value();
+        }
+        message = message + "(" + fieldName + ")" + fieldError.getDefaultMessage();
+        return ResultResponse.error(message);
     }
 }

@@ -32,15 +32,7 @@ public class Demo {
 //        System.out.println(counter);
 //    }
 
-    public static class Counter {
-        private static long counter = 0;
-
-        public static long addOne() {
-            return ++counter;
-        }
-    }
-
-//    public static void main(String[] args) {
+    //    public static void main(String[] args) {
 //        for (int i = 0; i < 10000; i++) {
 //            repeatMessage("hello", 100);
 //        }
